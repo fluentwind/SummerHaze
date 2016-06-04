@@ -1,4 +1,4 @@
-package com.fluentwind.tt.summerhaze;
+package com.fluentwind.tt.summerhaze.Activity;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.fluentwind.tt.summerhaze.R;
 
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;

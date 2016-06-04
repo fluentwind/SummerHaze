@@ -1,23 +1,18 @@
-package com.fluentwind.tt.summerhaze;
+package com.fluentwind.tt.summerhaze.Fragment;
 
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
+
+import com.fluentwind.tt.summerhaze.Activity.Activity_videoplayer;
+import com.fluentwind.tt.summerhaze.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

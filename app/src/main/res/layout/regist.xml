@@ -42,6 +42,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
 
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
@@ -56,21 +57,35 @@
         android:layout_below="@+id/editText_username"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="重复输入密码"
+        android:singleLine="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:ems="10"
+        android:id="@+id/editText_password2"
+        android:layout_below="@+id/editText_password"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登 录"
-        android:id="@+id/button_login"
+        android:text="提 交"
+        android:id="@+id/button_submit"
         android:textSize="18dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginEnd="20dp"
         android:textColor="@color/white"
         android:background="@color/colorPrimary"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/textView_alert"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,32 +93,7 @@
         android:text="New Text"
         android:textColor="@color/red"
         android:id="@+id/textView_alert"
-        android:layout_below="@+id/editText_password"
+        android:layout_below="@+id/editText_password2"
         android:layout_alignStart="@+id/editText_password" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:text="无法登陆？"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/textView_help"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="新用户注册"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="15dp"
-        android:id="@+id/textView_regist"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

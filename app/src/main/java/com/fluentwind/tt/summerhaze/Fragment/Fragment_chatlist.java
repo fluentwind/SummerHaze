@@ -1,4 +1,4 @@
-package com.fluentwind.tt.summerhaze;
+package com.fluentwind.tt.summerhaze.Fragment;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import com.fluentwind.tt.summerhaze.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

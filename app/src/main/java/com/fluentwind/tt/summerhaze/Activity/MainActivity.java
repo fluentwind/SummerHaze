@@ -1,10 +1,10 @@
-package com.fluentwind.tt.summerhaze;
+package com.fluentwind.tt.summerhaze.Activity;
 
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -12,17 +12,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.fluentwind.tt.summerhaze.Activity.Activity_login;
+import com.fluentwind.tt.summerhaze.Activity.Activity_userinfo;
+import com.fluentwind.tt.summerhaze.Config.config;
+import com.fluentwind.tt.summerhaze.Fragment.Fragment_chatlist;
+import com.fluentwind.tt.summerhaze.Fragment.Fragment_videolist;
+import com.fluentwind.tt.summerhaze.R;
+
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.vov.vitamio.utils.Log;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_videolist fragment_videolist;
     private Fragment_chatlist fragment_chatlist;
     private Fragment nowfragment;
-
+    private String Token,Username,Password;
     private TextView text_username,text_userinfo;
     private CircleImageView image_user;
     private DrawerLayout drawerLayout;
@@ -40,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*initWindow();*/
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,31 +104,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                Intent intent = new Intent(text_username.getContext(),Activity_login.class);
-                startActivity(intent);
-
-                overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
-
+                Userinfo();
             }
         });
         image_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Intent intent = new Intent(image_user.getContext(),Activity_userinfo.class);
-                startActivity(intent);
-
-                overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
+                Userinfo();
             }
         });
         text_userinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Intent intent = new Intent(image_user.getContext(),Activity_login.class);
-                startActivity(intent);
-
-                overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
+                Userinfo();
             }
         });
 
@@ -155,7 +150,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+
+        checkstatus();
+
   }
+
+
 
     /*private void initWindow(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
@@ -171,26 +174,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
     private void switchfragment(Fragment fragment){
         if(nowfragment!=fragment){
 
@@ -221,5 +206,97 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
     }
+    private void Login(){
+        Intent intent = new Intent(MainActivity.this,Activity_login.class);
+        startActivityForResult(intent, 10);
 
+        overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
+
+    }
+    private void Userinfo() {
+        Intent intent = new Intent(MainActivity.this,Activity_userinfo.class);
+        intent.putExtra("username",config.getCachedusername(MainActivity.this));
+        startActivityForResult(intent, 11);
+
+        overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case 10:{
+
+                if (resultCode == RESULT_OK) {
+                    Token = data.getStringExtra(config.KEY_TOKEN);
+                    Username = data.getStringExtra(config.KEY_USERNAME);
+                    Password = data.getStringExtra(config.KEY_PASSWORD);
+                    System.out.println(Token);
+                    System.out.println(Username);
+                    System.out.println(Password);
+                    config.cacheToken(MainActivity.this, Token);
+                    config.cacheuserinfo(MainActivity.this, Username, Password);
+
+
+                } else if (resultCode == RESULT_CANCELED) {
+                    finish();
+
+                }
+                break;
+            }
+
+            case 11:{
+
+                if (resultCode == RESULT_OK) {
+                    final ProgressDialog pd = ProgressDialog.show(MainActivity.this, config.STRING_PLEASEWAIT,config.STRING_LOGOUTING);
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+
+                            config.cacheToken(MainActivity.this,config.KEY_NULL);
+                            config.cacheuserinfo(MainActivity.this,config.KEY_NULL,config.KEY_NULL);
+
+
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            pd.dismiss();
+
+                            reload();
+                        }
+                    }.execute();
+
+
+
+                }
+                else if (resultCode == RESULT_CANCELED) {
+                    //refresh user info
+
+                }
+                break;
+            }
+
+        }
+    }
+    public void reload() {
+
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+    public void checkstatus(){
+        Token=config.getCachedToken(MainActivity.this);
+        //System.out.println("Token:"+Token);
+        //Username=config.getCachedusername(MainActivity.this);
+        //Password=config.getCacheduserpassword(MainActivity.this);
+        if (Token==null || Token==config.KEY_NULL ){
+            Login();
+        }
+    }
 }
