@@ -10,6 +10,12 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [
+                GETUI_APP_ID : "wUfkTPZwMB7JUzX1wD9gI6",
+                GETUI_APP_KEY : "L3vxcTyVkL8g3YUtRZFzA5",
+                GETUI_APP_SECRET : "iUNQdXSy3S6iEWOmMC7nr3",
+                PACKAGE_NAME : applicationId
+        ]
     }
     buildTypes {
         release {
@@ -38,4 +44,10 @@ dependencies {
 dependencies {
     compile project(':library_PullToRefreshSwipeMenuListView')
     compile 'com.android.support:support-v4:23.+'
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/GetuiSDK2.8.1.0.jar')
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile 'com.android.support:support-v4'
 }

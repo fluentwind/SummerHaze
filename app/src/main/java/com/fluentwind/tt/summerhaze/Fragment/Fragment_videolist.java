@@ -28,7 +28,7 @@ public class Fragment_videolist extends Fragment {
     private List<Map<String,Object>> dataList;
     private int[]icon={R.drawable.laoding_jietu,R.drawable.laoding_jietu};
     private String[]text={"location:xxx cam:xxxx","location:xxx cam:xxxx"};
-
+    private String path;
 
     @Nullable
     @Override
@@ -58,7 +58,11 @@ public class Fragment_videolist extends Fragment {
 
 
                 Intent intent = new Intent(view.getContext(),Activity_videoplayer.class);
-                startActivity(intent);
+
+                path="rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
+                intent .putExtra("path", path);
+                intent .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent );
 
                 getActivity().overridePendingTransition(R.anim.fragment_slide_in_from_right,R.anim.fragment_slide_out_to_left);
 

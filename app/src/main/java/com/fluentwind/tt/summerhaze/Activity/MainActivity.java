@@ -4,6 +4,7 @@ package com.fluentwind.tt.summerhaze.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,19 +14,19 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.fluentwind.tt.summerhaze.Activity.Activity_login;
-import com.fluentwind.tt.summerhaze.Activity.Activity_userinfo;
+
 import com.fluentwind.tt.summerhaze.Config.config;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_chatlist;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_videolist;
 import com.fluentwind.tt.summerhaze.R;
+import com.fluentwind.tt.summerhaze.tools.Bitmap_String;
+import com.igexin.sdk.PushManager;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,16 +38,17 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_videolist fragment_videolist;
     private Fragment_chatlist fragment_chatlist;
     private Fragment nowfragment;
-    private String Token,Username,Password;
+    private String Token,Username,Password,nickname=config.STRING_NULL,text=config.STRING_NULL;
     private TextView text_username,text_userinfo;
     private CircleImageView image_user;
     private DrawerLayout drawerLayout;
+    private Bitmap bitmap_logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        PushManager.getInstance().initialize(this.getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -230,9 +232,9 @@ public class MainActivity extends AppCompatActivity {
                     Token = data.getStringExtra(config.KEY_TOKEN);
                     Username = data.getStringExtra(config.KEY_USERNAME);
                     Password = data.getStringExtra(config.KEY_PASSWORD);
-                    System.out.println(Token);
-                    System.out.println(Username);
-                    System.out.println(Password);
+                    //System.out.println(Token);
+                    //System.out.println(Username);
+                    //System.out.println(Password);
                     config.cacheToken(MainActivity.this, Token);
                     config.cacheuserinfo(MainActivity.this, Username, Password);
 
@@ -254,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
                             config.cacheToken(MainActivity.this,config.KEY_NULL);
                             config.cacheuserinfo(MainActivity.this,config.KEY_NULL,config.KEY_NULL);
-
-
+                            config.cacheuserinfo2(MainActivity.this,config.KEY_NULL,config.KEY_NULL);
+                            config.cachelogo(MainActivity.this,null);
                             return null;
                         }
 
@@ -273,6 +275,35 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (resultCode == RESULT_CANCELED) {
                     //refresh user info
+                    String string_logo;
+                    try {
+                        string_logo=data.getStringExtra(config.STRING_LOGO);
+                        bitmap_logo=Bitmap_String.convertStringToIcon(string_logo);
+                        if (bitmap_logo!=null) {
+                            image_user.setImageBitmap(bitmap_logo);
+                            config.cachelogo(MainActivity.this,bitmap_logo);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        nickname = data.getStringExtra(config.KEY_NICKNAME);
+                        text = data.getStringExtra(config.KEY_TEXT);
+
+
+                        if(!nickname.equals("") && !nickname.equals("null") && !text.equals("") && !text.equals("null") ) {
+
+                            text_username.setText(nickname);
+                            text_userinfo.setText(text);
+
+                            config.cacheuserinfo2(MainActivity.this, nickname, text);
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
 
                 }
                 break;
@@ -295,8 +326,40 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println("Token:"+Token);
         //Username=config.getCachedusername(MainActivity.this);
         //Password=config.getCacheduserpassword(MainActivity.this);
+
+
+
         if (Token==null || Token==config.KEY_NULL ){
             Login();
+        }else{
+
+            try {
+                bitmap_logo=config.getCachedlogo(MainActivity.this);
+                if( bitmap_logo!=null){
+                    image_user.setImageBitmap(bitmap_logo);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+
+            try {
+                nickname=config.getCachednickname(MainActivity.this);
+                text=config.getCachedtext(MainActivity.this);
+                //System.out.println("okookoko"+nickname+text);
+                if(!nickname.equals("") && !nickname.equals("null") && !text.equals("") && !text.equals("null") ) {
+
+                    text_username.setText(nickname);
+                    text_userinfo.setText(text);
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }

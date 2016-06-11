@@ -24,4 +24,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
+    <style name="popup_window_bottombar">
+        <item name="android:windowEnterAnimation">@anim/fragment_slide_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/fragment_slide_out_to_bottom</item>
+
+    </style>
 </resources>

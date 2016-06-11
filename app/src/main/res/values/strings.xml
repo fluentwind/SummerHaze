@@ -3,4 +3,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="getui_appid">wUfkTPZwMB7JUzX1wD9gI6</string>
+    <string name="getui_appkey">L3vxcTyVkL8g3YUtRZFzA5</string>
+    <string name="getui_appsecret">iUNQdXSy3S6iEWOmMC7nr3</string>
+    <string name="getui_mastersecret">s4Pq7nSt9YAauhGb8UMBO9</string>
 </resources>

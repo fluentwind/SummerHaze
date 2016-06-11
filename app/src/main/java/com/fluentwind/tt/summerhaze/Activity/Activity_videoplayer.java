@@ -1,6 +1,7 @@
 package com.fluentwind.tt.summerhaze.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class Activity_videoplayer extends AppCompatActivity {
 
     private VideoView videoView ;
     private io.vov.vitamio.widget.MediaController mediaController;
-
+    private String videopath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +57,10 @@ public class Activity_videoplayer extends AppCompatActivity {
         //mediaController= new MediaController(view.getContext());
         mediaController=new io.vov.vitamio.widget.MediaController(this,true,findViewById(R.id.rtsp1));
 
-        playfunction();
 
+        Intent i=getIntent();
+        videopath=i.getStringExtra("path");
+        playfunction(videopath);
 
 
     }
@@ -90,11 +93,11 @@ public class Activity_videoplayer extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }*/
-    private  void playfunction(){
-        String path = "";
+    private  void playfunction(String path){
 
-        path="";
-        path="http://www.modrails.com/videos/passenger_nginx.mov";
+
+
+
         //http://gslb.miaopai.com/stream/oxX3t3Vm5XPHKUeTS-zbXA__.mp4
         if (path == "") {
             // Tell the user to provide a media file URL/path.
@@ -108,7 +111,7 @@ public class Activity_videoplayer extends AppCompatActivity {
             //videoView.setVideoPath(path);
             //rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov
 
-            videoView.setVideoURI(Uri.parse("rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov"));
+            videoView.setVideoURI(Uri.parse(path));
             videoView.setMediaController(mediaController);
             mediaController.setVisibility(videoView.GONE);
             videoView.requestFocus();

@@ -46,8 +46,8 @@ public class NetConnection {
                             break;
                     }
 
-                    System.out.println("Request url:"+uc.getURL());
-                    System.out.println("Request data:"+paramsStr);
+                    System.out.println("Request:"+uc.getURL()+"?"+paramsStr);
+
 
                     BufferedReader br = new BufferedReader(new InputStreamReader(uc.getInputStream(), config.CHARSET));
                     String line = null;
