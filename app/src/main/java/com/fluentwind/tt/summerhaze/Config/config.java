@@ -1,10 +1,14 @@
 package com.fluentwind.tt.summerhaze.Config;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
 import com.fluentwind.tt.summerhaze.tools.Bitmap_String;
+
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by Administrator on 2016/6/2.
@@ -27,6 +31,7 @@ public class config {
     public static final String KEY_NULL = "";
     public static final String STRING_NOINFO = "未填写";
     public static final String STRING_NULL = "";
+    public static final String STRING_NODETAILS = "暂无详情";
     public static final String STRING_CONNECTINGTOSERVER = "正在连接服务器";
     public static final String STRING_GETTINGFROMSERVER = "正在从服务器获取信息";
     public static final String STRING_CONNECTING = "正在连接";
@@ -61,12 +66,22 @@ public class config {
     public static final String KEY_USERINFO_LOGO = "user_logo";
     public static final String KEY_USERINFO_TEXT = "user_text";
 
+
+    public static final String JSON_MODE = "JSON_MODE";
+    public static final String JSON_MODE_RTSPONLY = "MODE_RTSPONLY";
+    public static final String JSON_RTSP_PATH = "RTSP_PATH";
+    public static final String JSON_RTSP_CAM = "RTSP_CAM";
+    public static final String JSON_RTSP_INFO = "RTSP_INFO";
+
     public static final String KEY_ACTION = "action";
     public static final String KEY_PHONE_NUM = "phone";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_USERNAME_MD5 = "username_md5";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_PASSWORD_MD5 = "password_md5";
+    public static final String KEY_TOUCHUAN = "FLAG_TOUCHUAN";
+
+
     public static final String KEY_PHONE_MD5 = "phone_md5";
     public static final String KEY_STATUS = "status";
     public static final String KEY_CODE = "code";
@@ -153,4 +168,8 @@ public class config {
 
         return Bitmap_String.convertStringToIcon(context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE).getString(STRING_LOGO, null));
     }
+
+
+
+
 }

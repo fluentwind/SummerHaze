@@ -4,10 +4,12 @@ package com.fluentwind.tt.summerhaze.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.PersistableBundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.NavigationView;
@@ -69,23 +71,38 @@ public class MainActivity extends AppCompatActivity {
 
                 int id = item.getItemId();
 
-                if (id == R.id.nav_camera) {
-                    // Handle the camera action
-                } else if (id == R.id.nav_gallery) {
+                if (id == R.id.nav_user) {
+                    Userinfo();
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else if (id == R.id.nav_touchuan) {
+                    if(item.getTitle().toString().equals("允许强制弹窗      是"))
+                    {
+                        item.setTitle("允许强制弹窗      否");
 
-                } else if (id == R.id.nav_slideshow) {
 
-                } else if (id == R.id.nav_manage) {
+                    }else {
+                        item.setTitle("允许强制弹窗      是");
+                    }
 
-                } else if (id == R.id.nav_share) {
+                } else if (id == R.id.nav_settings) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else if (id == R.id.nav_exit) {
+                    finish();
+                } else if (id == R.id.nav_bell) {
 
-                } else if (id == R.id.nav_send) {
+                    if(item.getTitle().toString().equals("允许开启铃声      是"))
+                    {
+                        item.setTitle("允许开启铃声      否");
+
+                    }else {
+                        item.setTitle("允许开启铃声      是");
+                    }
 
                 }
 
 
 
-                drawerLayout.closeDrawer(GravityCompat.START);
+
 
                 return false;
 
@@ -191,14 +208,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializefragment() {
 
-        fragment_videolist=new Fragment_videolist();
-        fragment_chatlist=new Fragment_chatlist();
+        if (fragment_videolist==null) {
+            fragment_videolist=new Fragment_videolist();
+        } else {
+        }
+        if (fragment_chatlist==null) {
+            fragment_chatlist=new Fragment_chatlist();
+        } else {
+        }
 
         getFragmentManager().beginTransaction()
                 .add(R.id.frame, fragment_videolist).commit();
         getFragmentManager().beginTransaction()
                 .add(R.id.frame, fragment_chatlist).hide(fragment_videolist).commit();
         nowfragment=fragment_chatlist;
+
+
+
     }
 
     @Override
@@ -362,4 +388,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        switch (newConfig.orientation)
+        {
+
+            case (Configuration.ORIENTATION_LANDSCAPE):
+                //如果转换为横向屏时，有要做的事，请写在这里
+                break;
+
+            case (Configuration.ORIENTATION_PORTRAIT):
+                //如果转换为竖向屏时，有要做的事，请写在这里
+                break;
+        }
+    }
+
 }

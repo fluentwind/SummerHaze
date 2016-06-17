@@ -58,7 +58,7 @@ public class Fragment_videolist extends Fragment {
 
 
                 Intent intent = new Intent(view.getContext(),Activity_videoplayer.class);
-
+                //path="http://gslb.miaopai.com/stream/oxX3t3Vm5XPHKUeTS-zbXA__.mp4";
                 path="rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov";
                 intent .putExtra("path", path);
                 intent .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

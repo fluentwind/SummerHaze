@@ -4,36 +4,41 @@
     <group android:checkableBehavior="single"
         >
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import"
+            android:id="@+id/nav_user"
+            android:icon="@mipmap/notification_48"
+            android:title="用户信息"
 
             />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_settings"
+            android:icon="@mipmap/settings_48"
+            android:title="设置" />
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="快速开关">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_touchuan"
+                android:icon="@mipmap/download_48"
+
+                android:title="允许强制弹窗      是" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_bell"
+                android:icon="@mipmap/bell_48"
+                android:title="允许开启铃声      是" />
         </menu>
     </item>
+
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@mipmap/close_48"
+            android:title="退出程序"
+
+            />
+
+
+
 
 </menu>

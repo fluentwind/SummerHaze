@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -19,25 +20,125 @@
         android:layout_below="@+id/toolbar"
 
         android:layout_alignParentStart="true"></LinearLayout>
+-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frame_info"
+        android:layout_below="@+id/rtsp1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:textSize="20dp"
+
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView_info" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rtsp1"
-        android:layout_below="@id/linetop">
+        android:background="@color/black"
 
-        <LinearLayout
-            android:orientation="horizontal"
+        >
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <io.vov.vitamio.widget.VideoView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
+                android:layout_centerInParent="true"
                 android:id="@+id/rtsp_player" />
-        </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/corner"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/bufferpercentage">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="28dp"
+
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:text="正在缓冲"
+                android:id="@+id/textView_buffering" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="28dp"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:text="获取数据"
+                android:id="@+id/textView_percentage" />
+
+        </FrameLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/topbar"
+        android:background="@color/black"
+        >
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageview_back"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:src="@mipmap/back_32_white"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+
+                android:text="Large Text"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:id="@+id/textView_video_info"
+                android:layout_toLeftOf="@+id/imageView_fullscreen"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/imageview_back"
+                android:layout_marginLeft="10dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView_fullscreen"
+                android:src="@mipmap/full_screen_32_white"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
 
 
     </FrameLayout>
-    </RelativeLayout>
+
+</RelativeLayout>
