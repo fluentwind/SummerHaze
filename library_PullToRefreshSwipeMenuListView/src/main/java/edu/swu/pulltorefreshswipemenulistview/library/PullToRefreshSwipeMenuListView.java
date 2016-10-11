@@ -247,6 +247,11 @@ public class PullToRefreshSwipeMenuListView extends ListView implements OnScroll
 				startLoadMore();
 				resetFooterHeight();
 				new ResetHeaderHeightTask().execute();
+
+
+			}else if(!mEnablePullLoad && mFooterView.getHeight()>0 && mFooterView.getBottomMargin() > 0){
+				resetFooterHeight();
+
 			} else if (getFirstVisiblePosition() == 0) {
 				// invoke refresh
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
@@ -345,6 +350,9 @@ public class PullToRefreshSwipeMenuListView extends ListView implements OnScroll
 	public void setPullLoadEnable(boolean enable) {
 		mEnablePullLoad = enable;
 		if (!mEnablePullLoad) {
+
+
+
 			mFooterView.hide();
 			mFooterView.setOnClickListener(null);
 		} else {
@@ -443,7 +451,7 @@ public class PullToRefreshSwipeMenuListView extends ListView implements OnScroll
 		}
 		mFooterView.setBottomMargin(height);
 
-		// setSelection(mTotalItemCount - 1); // scroll to bottom
+		//setSelection(mTotalItemCount - 1); // scroll to bottom
 	}
 
 	private void resetFooterHeight() {

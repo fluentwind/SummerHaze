@@ -72,6 +72,7 @@ public class Activity_userinfo extends AppCompatActivity {
         toolbar.setTitle("账户信息");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,14 +180,16 @@ public class Activity_userinfo extends AppCompatActivity {
     }
     public void onBackPressed() {
         // TODO Auto-generated method stub
-        super.onBackPressed();
+        //super.onBackPressed();
 
         Intent i =new Intent(Activity_userinfo.this,MainActivity.class);
+
         if(getinfook) {
             i.putExtra(config.STRING_LOGO, string_logo);
             i.putExtra(config.KEY_NICKNAME,text2[1].toString());
             i.putExtra(config.KEY_TEXT,text2[5].toString());
         }
+
         setResult(RESULT_CANCELED, i);
 
         finish();
@@ -346,6 +349,17 @@ public class Activity_userinfo extends AppCompatActivity {
                     String logo;
                     bitmap_logo = data.getParcelableExtra("data");
                     this.circleImageView_logo.setImageBitmap(bitmap_logo);
+                    config.CacheBitmaptoSD(bitmap_logo, username+"logo", new config.Result() {
+                        @Override
+                        public void OnSuccess() {
+
+                        }
+
+                        @Override
+                        public void OnFail() {
+
+                        }
+                    });
                     string_logo=Bitmap_String.convertIconToString(bitmap_logo);
                     config.cachelogo(Activity_userinfo.this,bitmap_logo);
                     logo=string_logo;
@@ -426,16 +440,11 @@ public class Activity_userinfo extends AppCompatActivity {
                 mPopWindow.dismiss();
 
 
-
                 try {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(uri_uri, "image");
-                    //intent.setDataAndType(Uri.fromFile( new File(getCacheDir() .getPath()+ "/logo.PNG")), "image");
-
-
+                    intent.setDataAndType(Uri.fromFile( new File(config.PATH_CACHE_ROOT_CACHE + "/" +username+"logo")), "image/*");
                     startActivity(intent);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();

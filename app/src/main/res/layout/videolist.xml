@@ -3,13 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridView
+    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gridView_video"
-        android:numColumns="1"
-
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

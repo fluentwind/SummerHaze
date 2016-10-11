@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="12sp"
-                    android:text="列表"
+                    android:text="翻译"
                     android:textColor="@drawable/textcolor"
                     android:background="@drawable/button_color"
                     android:layout_marginTop="5dp"

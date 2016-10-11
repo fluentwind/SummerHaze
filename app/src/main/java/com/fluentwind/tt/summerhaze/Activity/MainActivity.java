@@ -9,7 +9,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.PersistableBundle;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.NavigationView;
@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.fluentwind.tt.summerhaze.Config.config;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_chatlist;
+import com.fluentwind.tt.summerhaze.Fragment.Fragment_translation;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_videolist;
 import com.fluentwind.tt.summerhaze.R;
 import com.fluentwind.tt.summerhaze.tools.Bitmap_String;
@@ -40,11 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private Fragment_videolist fragment_videolist;
     private Fragment_chatlist fragment_chatlist;
     private Fragment nowfragment;
+    private Fragment_translation fragment_translation;
     private String Token,Username,Password,nickname=config.STRING_NULL,text=config.STRING_NULL;
     private TextView text_username,text_userinfo;
     private CircleImageView image_user;
     private DrawerLayout drawerLayout;
     private Bitmap bitmap_logo;
+    private String string_logo;
+    private NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
@@ -164,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.radio_button_4:{
+                        switchfragment(fragment_translation);
                         break;
                     }
                 }
@@ -209,18 +215,24 @@ public class MainActivity extends AppCompatActivity {
     private void initializefragment() {
 
         if (fragment_videolist==null) {
-            fragment_videolist=new Fragment_videolist();
-        } else {
+            fragment_videolist = new Fragment_videolist();
         }
         if (fragment_chatlist==null) {
             fragment_chatlist=new Fragment_chatlist();
-        } else {
         }
+        if (fragment_translation==null) {
+            fragment_translation=new Fragment_translation();
+        }
+
+
 
         getFragmentManager().beginTransaction()
                 .add(R.id.frame, fragment_videolist).commit();
         getFragmentManager().beginTransaction()
-                .add(R.id.frame, fragment_chatlist).hide(fragment_videolist).commit();
+                .add(R.id.frame, fragment_translation).hide(fragment_videolist).commit();
+        nowfragment=fragment_chatlist;
+        getFragmentManager().beginTransaction()
+                .add(R.id.frame, fragment_chatlist).hide(fragment_translation).commit();
         nowfragment=fragment_chatlist;
 
 
@@ -301,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (resultCode == RESULT_CANCELED) {
                     //refresh user info
-                    String string_logo;
+
                     try {
                         string_logo=data.getStringExtra(config.STRING_LOGO);
                         bitmap_logo=Bitmap_String.convertStringToIcon(string_logo);

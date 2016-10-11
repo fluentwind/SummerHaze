@@ -44,7 +44,7 @@ import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
  * Created by Administrator on 2016/5/24.
  */
 public class Fragment_chatlist extends Fragment implements IXListViewListener {
-    private ListView listView;
+
     private SimpleAdapter simpleAdapter;
     private List<Map<String,Object>> dataList;
     private int[]icon={R.drawable.gaoks58,R.drawable.gaoks58,R.drawable.gaoks58,R.drawable.gaoks58};
@@ -72,7 +72,7 @@ public class Fragment_chatlist extends Fragment implements IXListViewListener {
         mListView = (PullToRefreshSwipeMenuListView)view. findViewById(R.id.listView);
         mListView.setAdapter(simpleAdapter);
         mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(true);
+        mListView.setPullLoadEnable(false);
         mListView.setXListViewListener(this);
         mHandler = new Handler();
 
@@ -163,14 +163,15 @@ public class Fragment_chatlist extends Fragment implements IXListViewListener {
 
     private List<Map<String,Object>> getDataList()
     {
-        for (int i=0;i<text1.length;i++)
-        {
-            Map<String,Object>map=new HashMap<String,Object>();
-            map.put("text1",text1[i]);
-            map.put("text2",text2[i]);
-            map.put("time",time[i]);
-            map.put("icon",icon[i]);
-            dataList.add(map);
+        for (int j=0;j<text1.length;j++) {
+            for (int i = 0; i < text1.length; i++) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("text1", text1[i]);
+                map.put("text2", text2[i]);
+                map.put("time", time[i]);
+                map.put("icon", icon[i]);
+                dataList.add(map);
+            }
         }
         return dataList;
     }

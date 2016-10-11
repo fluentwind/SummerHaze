@@ -1,22 +1,26 @@
 package com.fluentwind.tt.summerhaze.Config;
 
-import android.app.Application;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Environment;
+
 
 import com.fluentwind.tt.summerhaze.tools.Bitmap_String;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.IOException;
+
 
 /**
  * Created by Administrator on 2016/6/2.
  */
 public class config {
 
-    public static final String SERVER_URL = "http://192.168.1.66:8080/testserver/api.jsp";
-
+    public static final String SERVER_URL = "http://192.168.0.104:8080/testserver/api.jsp";
+    public static final String PACKAGENAME="com.fluentwind.tt.summerhaze";
     public static final String CHARSET = "utf-8";
     public static final String ALERT_WRONGUSERNAME = "用户名错误";
     public static final String ALERT_WRONGPASSWORD = "密码错误";
@@ -115,6 +119,10 @@ public class config {
 
 
 
+    public static final String PATH_CACHE_ROOT= Environment.getExternalStorageDirectory()+"/Android/data/"+PACKAGENAME;
+    public static final String PATH_CACHE_ROOT_CACHE= PATH_CACHE_ROOT+"/cache";
+
+
     public static String getCachedToken(Context context){
         return context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE).getString(KEY_TOKEN, null);
     }
@@ -164,12 +172,45 @@ public class config {
             e.commit();
         }
     }
+
+    public static void CacheBitmaptoSD(Bitmap bitmap,String name,Result result){
+
+
+                try {
+
+                    File file = new File(PATH_CACHE_ROOT);
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                    file = new File(PATH_CACHE_ROOT_CACHE);
+                    if (!file.exists()) {
+                        file.mkdir();
+                    }
+                    String fileName = PATH_CACHE_ROOT_CACHE + "/" + name;
+                    FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                    result.OnSuccess();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    result.OnFail();
+                }
+
+
+
+    }
+
     public static Bitmap getCachedlogo(Context context){
 
         return Bitmap_String.convertStringToIcon(context.getSharedPreferences(APP_ID, Context.MODE_PRIVATE).getString(STRING_LOGO, null));
     }
 
-
+    public static interface Result{
+        void OnSuccess();
+        void OnFail();
+    }
 
 
 }

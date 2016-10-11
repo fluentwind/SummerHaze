@@ -81,6 +81,7 @@ public class PullToRefreshListFooter extends LinearLayout {
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mContentView.getLayoutParams();
         lp.height = 0;
         mContentView.setLayoutParams(lp);
+        //mContentView.setVisibility(GONE);
     }
 
     /**

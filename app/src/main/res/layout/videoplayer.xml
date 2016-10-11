@@ -106,7 +106,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageview_back"
-                android:layout_marginLeft="10dp"
+
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:src="@mipmap/back_32_white"
@@ -121,7 +125,7 @@
                 android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:id="@+id/textView_video_info"
-                android:layout_toLeftOf="@+id/imageView_fullscreen"
+                android:layout_toLeftOf="@+id/imageView_getcurrentframe"
                 android:singleLine="true"
                 android:layout_toRightOf="@+id/imageview_back"
                 android:layout_marginLeft="10dp"
@@ -132,9 +136,28 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView_fullscreen"
                 android:src="@mipmap/full_screen_32_white"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
+
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="5dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView_getcurrentframe"
+                android:src="@mipmap/screenshot_32_white"
+
+                android:paddingRight="8dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/imageView_fullscreen"/>
+
 
         </RelativeLayout>
 

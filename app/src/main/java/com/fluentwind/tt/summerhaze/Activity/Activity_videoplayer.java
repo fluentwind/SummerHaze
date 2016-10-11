@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +24,12 @@ import android.widget.Toast;
 
 import com.fluentwind.tt.summerhaze.Config.config;
 import com.fluentwind.tt.summerhaze.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -35,13 +44,15 @@ public class Activity_videoplayer extends AppCompatActivity {
 
     private VideoView videoView ;
     private io.vov.vitamio.widget.MediaController mediaController;
-    private String videopath,cam,info;
+    private String videopath,cam,cam1,info;
     private float per;
     private FrameLayout frameLayout_topbar ,frameLayout_bufferpercentage,frameLayout_info;
     private TextView textView_video_info,textView_buffering,textView_percentage,textView_info;
-    private ImageView imageView_back,imageView_fullscreen;
+    private ImageView imageView_back,imageView_fullscreen,imageView_getcurrentframe;
     private int flag_orientation;
     private Boolean buffer=false;
+    private boolean needResume;
+    private MediaPlayer mmediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,7 @@ public class Activity_videoplayer extends AppCompatActivity {
             if(cam==null || cam.equals(config.STRING_NULL) || cam.equals("null")){
                 cam="未知机位";
             }else{
+                cam1=cam;
                 cam="机位："+cam;
             }
 
@@ -120,6 +132,16 @@ public class Activity_videoplayer extends AppCompatActivity {
                         R.anim.fragment_slide_out_to_right);
             }
         });
+
+
+        imageView_getcurrentframe=(ImageView)findViewById(R.id.imageView_getcurrentframe);
+        imageView_getcurrentframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getcurrentframe(mmediaPlayer);
+            }
+        });
+
         imageView_fullscreen=(ImageView)findViewById(R.id.imageView_fullscreen);
         switch (flag_orientation){
             case 1:
@@ -167,7 +189,6 @@ public class Activity_videoplayer extends AppCompatActivity {
         textView_info.setText("视频信息："+ "\n"+cam+"\n"+info);
         playfunction(videopath);
 
-
     }
 
 
@@ -189,8 +210,6 @@ public class Activity_videoplayer extends AppCompatActivity {
     private  void playfunction(String path){
 
 
-
-
         //http://gslb.miaopai.com/stream/oxX3t3Vm5XPHKUeTS-zbXA__.mp4
         if (path == "") {
             // Tell the user to provide a media file URL/path.
@@ -205,7 +224,7 @@ public class Activity_videoplayer extends AppCompatActivity {
             //rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov
 
             videoView.setVideoURI(Uri.parse(path));
-
+            //videoView.setBufferSize( 512 * 1024);
             videoView.setMediaController(mediaController);
             mediaController.setVisibility(videoView.GONE);
             mediaController.setFileName(cam);
@@ -223,13 +242,47 @@ public class Activity_videoplayer extends AppCompatActivity {
             });
             mediaController.setAlpha(0.7f);
 
+            if(path.substring(0,4)=="rtsp"){
 
+            }
+            videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                @Override
+                public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                    switch (what) {
+                        case MediaPlayer.MEDIA_INFO_BUFFERING_START:
+                            //开始缓存，暂停播放
+                            if (videoView.isPlaying()) {
+                                videoView.pause();
+                                needResume = true;
+                            }
+                            frameLayout_bufferpercentage.setVisibility(View.VISIBLE);
+                            break;
+                        case MediaPlayer.MEDIA_INFO_BUFFERING_END:
+                            //缓存完成，继续播放
+                            if (needResume)
+                                videoView.start();
+                            frameLayout_bufferpercentage.setVisibility(View.INVISIBLE);
+
+                            break;
+                        case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
+                            //显示 下载速度
+                            //System.out.println("download rate:" + extra);
+
+
+                            //textView_percentage.setText(extra +"" );
+                            break;
+                    }
+                    return true;
+                }
+            });
             videoView.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
                 @Override
                 public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
                     per=(percent*videoView.getDuration()/100-videoView.getCurrentPosition())/1000 *100/10 ;
-
+                    if (per<0){
+                        per=0;
+                    }
 
                     if (videoView.isPlaying()) {
                         frameLayout_bufferpercentage.setVisibility(View.INVISIBLE);
@@ -267,6 +320,7 @@ public class Activity_videoplayer extends AppCompatActivity {
                     // optional need Vitamio 4.0
                     mediaPlayer.setPlaybackSpeed(1.0f);
                     videoView.start();
+                    mmediaPlayer=mediaPlayer;
 
 
                 }
@@ -306,5 +360,34 @@ public class Activity_videoplayer extends AppCompatActivity {
                 break;
         }
     }
+    private void getcurrentframe(MediaPlayer mMediaPlayer){
+        Bitmap dd = mMediaPlayer.getCurrentFrame();//截图方法
+        if (mMediaPlayer.isPlaying()) {
+            try {
+                    String  name =cam1+"_b";
+                File file=new File( config.PATH_CACHE_ROOT);
+                if(!file.exists()) {
+                    file.mkdir();
 
+                }
+                file=new File( config.PATH_CACHE_ROOT_CACHE);
+                if(!file.exists()) {
+                    file.mkdir();
+
+                }
+                String fileName =config.PATH_CACHE_ROOT_CACHE+ "/" + name;
+                FileOutputStream b = new FileOutputStream(fileName);
+                dd.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                b.flush();
+                b.close();
+                Toast.makeText(Activity_videoplayer.this, "截图成功",
+                        Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else
+            Toast.makeText(Activity_videoplayer.this, "视频未播放，请稍候截图",
+                    Toast.LENGTH_LONG).show();
+    }
 }

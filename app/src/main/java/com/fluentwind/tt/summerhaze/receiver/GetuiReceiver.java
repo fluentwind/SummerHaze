@@ -3,8 +3,12 @@ package com.fluentwind.tt.summerhaze.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fluentwind.tt.summerhaze.Activity.Activity_videoplayer;
 import com.fluentwind.tt.summerhaze.Activity.MainActivity;
@@ -14,10 +18,18 @@ import com.igexin.sdk.PushConsts;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Administrator on 2016/6/8.
  */
 public class GetuiReceiver extends BroadcastReceiver {
+
+    private String cid;
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -26,8 +38,42 @@ public class GetuiReceiver extends BroadcastReceiver {
         switch (bundle.getInt(PushConsts.CMD_ACTION)) {
             case PushConsts.GET_CLIENTID:
 
-                String cid = bundle.getString("clientid");
+                cid = bundle.getString("clientid");
                 // TODO:处理cid返回
+
+
+
+                        try {
+                            String name ="cid.txt";
+                            File file=new File( config.PATH_CACHE_ROOT);
+                            if(!file.exists()) {
+                                file.mkdir();
+
+                            }
+                            file=new File( config.PATH_CACHE_ROOT_CACHE);
+                            if(!file.exists()) {
+                                file.mkdir();
+
+                            }
+                            String fileName =config.PATH_CACHE_ROOT_CACHE+ "/" + name;
+                            FileOutputStream b = new FileOutputStream(fileName);
+
+                            b.write(cid.getBytes());
+                            b.close();
+
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
+
+
+
+
+
+
+
+
                 break;
             case PushConsts.GET_MSG_DATA:
 
