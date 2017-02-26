@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="聊天"
+                android:text="列表"
                     android:textSize="12sp"
                     android:textColor="@drawable/textcolor"
                     android:background="@drawable/button_color"
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="联系人"
+                    android:text="聊天"
                     android:textSize="12sp"
                     android:textColor="@drawable/textcolor"
                     android:background="@drawable/button_color"
@@ -107,23 +107,6 @@
                     android:drawableTop="@drawable/button_monitor"
                     android:gravity="center_horizontal"
                     android:id="@+id/radio_button_3"/>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="12sp"
-                    android:text="列表"
-                    android:textColor="@drawable/textcolor"
-                    android:background="@drawable/button_color"
-                    android:layout_marginTop="5dp"
-
-                    android:gravity="center_horizontal"
-                    android:button="@null"
-                    android:drawableTop="@mipmap/list_32"
-                    android:drawablePadding="3dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="3dp"
-                    android:id="@+id/radio_button_4"/>
 
             </RadioGroup>
 

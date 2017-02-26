@@ -1,14 +1,14 @@
 [
     {
-        "merged": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\item_list_app.xml",
-        "source": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\item_list_app.xml"
+        "merged": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\xlistview_footer.xml",
+        "source": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\xlistview_footer.xml"
     },
     {
-        "merged": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\xlistview_header.xml",
-        "source": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\xlistview_header.xml"
+        "merged": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\xlistview_header.xml",
+        "source": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\xlistview_header.xml"
     },
     {
-        "merged": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\xlistview_footer.xml",
-        "source": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\xlistview_footer.xml"
+        "merged": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\layout\\item_list_app.xml",
+        "source": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\layout\\item_list_app.xml"
     }
 ]

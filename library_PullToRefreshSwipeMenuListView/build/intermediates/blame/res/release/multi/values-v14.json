@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\values-v14\\values-v14.xml",
+        "outputFile": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v14\\values-v14.xml",
         "map": [
             {
                 "to": {
@@ -12,14 +12,14 @@
                     "endOffset": 201
                 },
                 "from": {
-                    "file": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\values-v14\\styles.xml",
+                    "file": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\values-v14\\styles.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 220,
+                        "startOffset": 227,
                         "endLine": 9,
                         "endColumn": 12,
-                        "endOffset": 366
+                        "endOffset": 375
                     }
                 }
             }

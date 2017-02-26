@@ -1,10 +1,10 @@
 [
     {
-        "merged": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
-        "source": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+        "merged": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\xlistview_arrow.png",
-        "source": "E:\\Android\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\drawable-hdpi\\xlistview_arrow.png"
+        "merged": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\xlistview_arrow.png",
+        "source": "D:\\Android_Project\\SummerHaze\\library_PullToRefreshSwipeMenuListView\\src\\main\\res\\drawable-hdpi\\xlistview_arrow.png"
     }
 ]

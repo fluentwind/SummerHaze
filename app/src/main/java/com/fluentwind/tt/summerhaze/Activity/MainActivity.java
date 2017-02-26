@@ -22,11 +22,14 @@ import android.widget.TextView;
 
 
 import com.fluentwind.tt.summerhaze.Config.config;
+import com.fluentwind.tt.summerhaze.Fragment.Fragment_chat;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_chatlist;
 import com.fluentwind.tt.summerhaze.Fragment.Fragment_videolist;
 import com.fluentwind.tt.summerhaze.R;
 import com.fluentwind.tt.summerhaze.tools.Bitmap_String;
 import com.igexin.sdk.PushManager;
+
+import org.xutils.x;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private Fragment_videolist fragment_videolist;
     private Fragment_chatlist fragment_chatlist;
+    private Fragment_chat fragment_chat;
     private Fragment nowfragment;
     private String Token,Username,Password,nickname=config.STRING_NULL,text=config.STRING_NULL;
     private TextView text_username,text_userinfo;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         PushManager.getInstance().initialize(this.getApplicationContext());
 
@@ -139,16 +144,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.radio_button_2:{
-
+                        switchfragment(fragment_chat);
                         break;
                     }
                     case R.id.radio_button_3:{
                         switchfragment(fragment_videolist);
                         break;
                     }
-                    case R.id.radio_button_4:{
-                        break;
-                    }
+
                 }
             }
         });
@@ -156,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        checkstatus();
+       // checkstatus();
 
   }
 
@@ -193,11 +196,13 @@ public class MainActivity extends AppCompatActivity {
 
         fragment_videolist=new Fragment_videolist();
         fragment_chatlist=new Fragment_chatlist();
-
+        fragment_chat=new Fragment_chat();
         getFragmentManager().beginTransaction()
                 .add(R.id.frame, fragment_videolist).commit();
         getFragmentManager().beginTransaction()
-                .add(R.id.frame, fragment_chatlist).hide(fragment_videolist).commit();
+                .add(R.id.frame, fragment_chat).hide(fragment_videolist).commit();
+        getFragmentManager().beginTransaction()
+                .add(R.id.frame, fragment_chatlist).hide(fragment_chat).commit();
         nowfragment=fragment_chatlist;
     }
 
