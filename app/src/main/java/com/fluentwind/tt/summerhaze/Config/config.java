@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class config {
 
-    public static final String SERVER_URL = "http://192.168.0.104:8080/testserver/api.jsp";
+    public static final String SERVER_URL = "http://192.168.1.104:8080/testserver/api.jsp";
     public static final String PACKAGENAME="com.fluentwind.tt.summerhaze";
     public static final String CHARSET = "utf-8";
     public static final String ALERT_WRONGUSERNAME = "用户名错误";
